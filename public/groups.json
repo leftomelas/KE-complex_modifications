@@ -737,6 +737,9 @@
         {
           "path": "json/home_row_mods.json",
           "extra_description_path": "extra_descriptions/home_row_mods.html"
+        },
+        {
+          "path": "json/smart_caps_lock.json"
         }
       ]
     },
