@@ -316,14 +316,15 @@ function main() {
     basic('right_arrow', ['option'], [toKey('close_bracket', ['left_command'])], [remoteUnless], 'Alt+Right navigates forward.')
   )
 
+  // Use the native Spotlight key; launching the app can leave its UI hidden on Tahoe.
   // Windows-key actions. Standard PC keyboards report the Windows key as
   // Command on macOS, so no modifier swap is required by this edition.
   manipulators.push(
     basic('spacebar', ['command'], [toKey('spacebar', ['left_control'])], [remoteUnless], 'Win+Space invokes the standard macOS next-input-source shortcut.'),
     basic('e', ['command'], [{ software_function: { open_application: { bundle_identifier: 'com.apple.finder' } } }], [remoteUnless], 'Win+E opens Finder.'),
     basic('i', ['command'], [{ software_function: { open_application: { bundle_identifier: 'com.apple.systempreferences' } } }], [remoteUnless], 'Win+I opens System Settings.'),
-    basic('r', ['command'], [{ software_function: { open_application: { bundle_identifier: 'com.apple.Spotlight' } } }], [remoteUnless], 'Win+R opens Spotlight.'),
-    basic('s', ['command'], [{ software_function: { open_application: { bundle_identifier: 'com.apple.Spotlight' } } }], [remoteUnless], 'Win+S opens Spotlight.'),
+    basic('r', ['command'], [{ apple_vendor_keyboard_key_code: 'spotlight', repeat: false }], [remoteUnless], 'Win+R opens Spotlight.'),
+    basic('s', ['command'], [{ apple_vendor_keyboard_key_code: 'spotlight', repeat: false }], [remoteUnless], 'Win+S opens Spotlight.'),
     basic('l', ['command'], [toKey('q', ['left_control', 'left_command'])], [remoteUnless], 'Win+L locks the Mac.'),
     basic('tab', ['command'], [toKey('mission_control')], [remoteUnless], 'Win+Tab opens Mission Control.'),
     basic('d', ['command'], [toKey('f11', ['fn'])], [remoteUnless], 'Win+D shows the desktop.'),
@@ -347,9 +348,8 @@ function main() {
     )
     tap.to_if_alone = [
       {
-        software_function: {
-          open_application: { bundle_identifier: 'com.apple.Spotlight' },
-        },
+        apple_vendor_keyboard_key_code: 'spotlight',
+        repeat: false,
       },
     ]
     tap.parameters = { 'basic.to_if_alone_timeout_milliseconds': 250 }
